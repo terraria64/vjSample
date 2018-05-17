@@ -2,12 +2,12 @@ ArrayList<AppBase>apps;
 int selected;
 
 void setup() {
-  size(displayWidth,displayHeight, P2D);
+  size(displayWidth,displayHeight, P3D);
   colorMode(HSB,360,100,100);
-  
+    
   apps = new ArrayList<AppBase>();
   apps.add(new GraphVisualizer(this));
-  apps.add(new BlueSquare(this));
+  apps.add(new GrayEye(this));
   
   for(AppBase app:apps){
     app.setup();
