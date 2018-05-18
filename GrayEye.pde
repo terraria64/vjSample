@@ -1,3 +1,4 @@
+
 class GrayEye extends AppBase {
   int frames=30, num=400;
   float theta, sz=2;
@@ -13,7 +14,7 @@ class GrayEye extends AppBase {
   
   @Override void draw() {
     randomSeed(125);
-    background(20);
+    background(bkg);
     float r=0;
     noStroke();
     fill(255, 50);
@@ -37,4 +38,6 @@ class GrayEye extends AppBase {
     stroke(255);
     theta += TWO_PI/frames;
   }
+  
+   
 }
