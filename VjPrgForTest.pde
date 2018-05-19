@@ -8,6 +8,8 @@ ArrayList<AppBase>apps;
 int selected;
 
 // for DanImg
+PImage img;
+PImage img_noise;
 float dn_alpha = 0;
 
 // for GraphVisualizer
@@ -23,9 +25,28 @@ float graph2_weight = 1;
 float graph3_weight = 1;
 float bkg_b = 0;
 
+float rad_gain;
+
 // for GrayEye
 
 float bkg = 0;
+
+// for DotWave
+float wave_alpha = 0;
+float circle_height = 1;
+float circle_color = 0;
+boolean w_color_flg = false;
+float circle_gain = 0;
+
+// for NowIts
+
+PImage n_img;
+
+
+// for Pool
+PImage rain;
+float p_alph;
+float p_alph_2;
 
 Minim minim;
 AudioInput in;
@@ -38,11 +59,18 @@ void setup() {
   minim = new Minim(this);
   in = minim.getLineIn(Minim.STEREO, 512);
   oscP5 = new OscP5(this, 9000);
+  
+  
+  img = loadImage("dn.jpg");
+  img_noise = loadImage("dn_n.jpg");
+  rain = loadImage("rain.jpg");
     
   apps = new ArrayList<AppBase>();
   apps.add(new DanImg(this));
   apps.add(new GraphVisualizer(this));
-  apps.add(new GrayEye(this));
+  apps.add(new DotWave(this));
+  apps.add(new Pool(this));
+  apps.add(new NowIts(this));
   
   for(AppBase app:apps){
     app.setup();
@@ -62,6 +90,12 @@ void keyPressed(){
   }
   if(key == '2'){
     selected = 2;
+  }
+  if(key == '3'){
+    selected = 3;
+  }
+  if(key == '4'){
+    selected = 4;
   }
 }
 
@@ -88,15 +122,42 @@ void oscEvent(OscMessage theOscMessage) {
     ellipse_green = green;
     
   } else if (addr.equals("/1/fader5")) {
+    float r_gain = map(val0, 0, 1, 0, 0.5);
+    rad_gain = r_gain;
+    
+  } else if (addr.equals("/1/fader6")) {
     float alpha1 = map(val0, 0, 1, 0, 100);
     float alpha2 = map(val0, 0, 1, 0, 50);
     graph2_alpha = alpha1;
     graph3_alpha = alpha2;
+  
+  } else if (addr.equals("/1/fader7")) {
+    wave_alpha = map(val0, 0, 1, 0, 255);
+  
+  } else if (addr.equals("/1/fader8")) {
+    circle_color = map(val0, 0, 1, 0, 150);
+    
+  } else if (addr.equals("/1/fader9")) {
+    circle_gain = map(val0, 0, 1, 0, 200);
+    
+  } else if (addr.equals("/1/fader10")) {
+    p_alph = map(val0, 0, 1, 0, 150);
+    p_alph_2 = map(val0, 0, 1, 0, 250);
+        
+  } else if (addr.equals("/1/fader11")) {
+    
+    
   } else if (addr.equals("/1/rotary2")) {
     float blue = map(val0, 0, 1, 0, 10);
     bkg_b = blue;
   } else if (addr.equals("/1/rotary3")) {
-    float dn_alp = map(val0, 0, 1, 0, 255);
-    dn_alpha = dn_alp;
+    dn_alpha = map(val0, 0, 1, 0, 255);
+    println(dn_alpha);
+  } else if (addr.equals("/1/push1")) {
+    if(w_color_flg == true) {
+      w_color_flg = false;
+    } else {
+      w_color_flg = true;
+    }
   }
 }

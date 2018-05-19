@@ -1,11 +1,11 @@
 
 
-class GraphVisualizer extends AppBase {
+class NowIts extends AppBase {
   
   int frames=30, num=400;
   float theta, sz=2;
 
-  GraphVisualizer(PApplet _parent) {
+  NowIts(PApplet _parent) {
     super(_parent);
   }
   
@@ -14,7 +14,7 @@ class GraphVisualizer extends AppBase {
   }
   
   @Override void draw() {
-    parent.background(0, 0, bkg_b);
+    parent.background(bkg_b*5, bkg_b*7, bkg_b*6);
     
     float rad = in.mix.level() * rad_gain;
     
@@ -30,15 +30,15 @@ class GraphVisualizer extends AppBase {
       stroke(255);
       strokeWeight(1);
       line( x1, y1 + in.mix.get(i) * osc1, x2, y1 + in.mix.get(i+1) * osc1);
-      stroke(0, 0, 10);
+      stroke(bkg_b * 10, bkg_b * 10, bkg_b * 10);
       strokeWeight(1);
       line( x1, y1 + in.mix.get(i) * osc2 * 1000, x2, y1 + in.mix.get(i+1) * osc2 * 1000);
       
-      stroke(255, 0);
+      stroke(255, graph3_alpha/2);
       strokeWeight(in.mix.get(i) * 3000);
       line( x1, y1, x2, y1);
       
-      stroke(255, graph3_alpha);
+      stroke(255, graph3_alpha * 4);
       strokeWeight(in.mix.get(i) * 4000);
       line( x1, y1, x2, y1);
 
