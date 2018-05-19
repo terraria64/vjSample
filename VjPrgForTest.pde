@@ -6,6 +6,10 @@ import oscP5.*;
 
 ArrayList<AppBase>apps;
 int selected;
+
+// for DanImg
+float dn_alpha = 0;
+
 // for GraphVisualizer
 float osc1 = 0;
 float osc2 = 0;
@@ -36,6 +40,7 @@ void setup() {
   oscP5 = new OscP5(this, 9000);
     
   apps = new ArrayList<AppBase>();
+  apps.add(new DanImg(this));
   apps.add(new GraphVisualizer(this));
   apps.add(new GrayEye(this));
   
@@ -54,6 +59,9 @@ void keyPressed(){
   }
   if(key == '1'){
     selected = 1;
+  }
+  if(key == '2'){
+    selected = 2;
   }
 }
 
@@ -88,5 +96,7 @@ void oscEvent(OscMessage theOscMessage) {
     float blue = map(val0, 0, 1, 0, 10);
     bkg_b = blue;
   } else if (addr.equals("/1/rotary3")) {
+    float dn_alp = map(val0, 0, 1, 0, 255);
+    dn_alpha = dn_alp;
   }
 }
