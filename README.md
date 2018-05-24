@@ -1,6 +1,8 @@
 # vjSample
 
 d.a.n.のコピーバンドのVJ素材
+Touch OSCおよびオーディオ入力と連携
+
 
 ## VjPrgForTest.pde
 メインクラス
