@@ -26,9 +26,6 @@ float graph3_weight = 1;
 float bkg_b = 0;
 
 float rad_gain;
-
-// for GrayEye
-
 float bkg = 0;
 
 // for DotWave
@@ -44,9 +41,10 @@ PImage n_img;
 
 
 // for Pool
-PImage rain;
-float p_alph;
-float p_alph_2;
+ArrayList particles = new ArrayList();
+// Array to store all points
+PVector[] points;
+float angle = 120, shapeSize = 300;
 
 Minim minim;
 AudioInput in;
@@ -63,7 +61,6 @@ void setup() {
   
   img = loadImage("dn.jpg");
   img_noise = loadImage("dn_n.jpg");
-  rain = loadImage("rain.jpg");
     
   apps = new ArrayList<AppBase>();
   apps.add(new DanImg(this));
@@ -141,8 +138,6 @@ void oscEvent(OscMessage theOscMessage) {
     circle_gain = map(val0, 0, 1, 0, 200);
     
   } else if (addr.equals("/1/fader10")) {
-    p_alph = map(val0, 0, 1, 0, 150);
-    p_alph_2 = map(val0, 0, 1, 0, 250);
         
   } else if (addr.equals("/1/fader11")) {
     
